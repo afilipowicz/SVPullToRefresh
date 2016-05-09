@@ -1,0 +1,6 @@
+framework module CinoSpinner {
+  umbrella header "CinoSpinner-umbrella.h"
+
+  export *
+  module * { export * }
+}
