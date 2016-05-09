@@ -449,7 +449,7 @@ static char UIScrollViewPullToRefreshView;
     return _arrow;
 }
 
-- (UIActivityIndicatorView *)activityIndicatorView {
+- (CustomRefreshControl *)activityIndicatorView {
     if(!_activityIndicatorView) {
         _activityIndicatorView = [CustomRefreshControl new];
         [_activityIndicatorView setup];
@@ -502,10 +502,6 @@ static char UIScrollViewPullToRefreshView;
 
 - (UIColor *)textColor {
     return self.titleLabel.textColor;
-}
-
-- (UIColor *)activityIndicatorViewColor {
-    return self.activityIndicatorView.color;
 }
 
 #pragma mark - Setters

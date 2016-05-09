@@ -206,7 +206,7 @@ UIEdgeInsets scrollViewOriginalContentInsets;
 
 #pragma mark - Getters
 
-- (UIActivityIndicatorView *)activityIndicatorView {
+- (CustomRefreshControl *)activityIndicatorView {
     if(!_activityIndicatorView) {
         _activityIndicatorView = [CustomRefreshControl new];
         [_activityIndicatorView setup];
