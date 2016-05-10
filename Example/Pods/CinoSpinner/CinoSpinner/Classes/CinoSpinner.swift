@@ -108,4 +108,13 @@ import UIKit
             }
         }
     }
+    
+    /**
+     To expose the underlying method to Objective-C
+     
+     - parameter direction: true - in; false - out
+     */
+    public func fade(direction: Bool) {
+        fade(direction ? .In : .Out)
+    }
 }
