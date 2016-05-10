@@ -234,7 +234,7 @@ static char UIScrollViewPullToRefreshView;
             case SVPullToRefreshStateAll:
             case SVPullToRefreshStateStopped:
                 self.arrow.alpha = 1;
-                [self.activityIndicatorView stopRefreshing];
+                [self.activityIndicatorView endRefreshing];
                 switch (self.position) {
                     case SVPullToRefreshPositionTop:
                         [self rotateArrow:0 hide:NO];
@@ -257,7 +257,7 @@ static char UIScrollViewPullToRefreshView;
                 break;
                 
             case SVPullToRefreshStateLoading:
-                [self.activityIndicatorView startRefreshing];
+                [self.activityIndicatorView beginRefreshing];
                 switch (self.position) {
                     case SVPullToRefreshPositionTop:
                         [self rotateArrow:0 hide:YES];
@@ -452,9 +452,9 @@ static char UIScrollViewPullToRefreshView;
 - (CustomRefreshControl *)activityIndicatorView {
     if(!_activityIndicatorView) {
         _activityIndicatorView = [CustomRefreshControl new];
+        [self addSubview:_activityIndicatorView];
         [_activityIndicatorView setup];
         _activityIndicatorView.hidesWhenStopped = YES;
-        [self addSubview:_activityIndicatorView];
     }
     return _activityIndicatorView;
 }

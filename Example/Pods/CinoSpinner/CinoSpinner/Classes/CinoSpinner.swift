@@ -1,21 +1,23 @@
-//
-//  CinoSpinner.swift
-//  Flashpick-iOS
-//
-//  Created by Marcin Jackowski on 08/03/16.
-//  Copyright © 2016 Paweł Sternik. All rights reserved.
-//
-
 import Foundation
 import UIKit
 
 @objc public class CinoSpinner: UIView {
     
+    public enum FadeDirection {
+        case In
+        case Out
+    }
+    
+    public static let dimension: CGFloat = 50.0
+    
     private var positionYAnimation: CABasicAnimation?
     private var scaleAnimation: CABasicAnimation?
     private var moveAnimation: CAKeyframeAnimation?
-    public var placeholder: UIView?
-    public var dot = CALayer()
+    private var dot = CALayer()
+    
+    convenience init() {
+        self.init(frame: CGRect(origin: .zero, size: CGSize(width: CinoSpinner.dimension, height: CinoSpinner.dimension)))
+    }
     
     override public func awakeFromNib() {
         super.awakeFromNib()
@@ -60,18 +62,24 @@ import UIKit
         positionYAnimation.duration = duration / 3.0
         positionYAnimation.autoreverses = true
         positionYAnimation.repeatCount = .infinity
+        positionYAnimation.removedOnCompletion = false
+        positionYAnimation.fillMode = kCAFillModeForwards
         positionYAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
         
         scaleAnimation.toValue = 0.5
         scaleAnimation.duration = duration
         scaleAnimation.autoreverses = true
         scaleAnimation.repeatCount = .infinity
+        scaleAnimation.removedOnCompletion = false
+        scaleAnimation.fillMode = kCAFillModeForwards
         scaleAnimation.timingFunction = CAMediaTimingFunction(controlPoints: 0.6, -0.28, 0.735, 0.045)
         
         moveAnimation.beginTime = 1.0
         moveAnimation.path = getPath()
         moveAnimation.duration = duration
         moveAnimation.repeatCount = .infinity
+        moveAnimation.removedOnCompletion = false
+        moveAnimation.fillMode = kCAFillModeForwards
         moveAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
         startAnimation()
     }
@@ -91,5 +99,13 @@ import UIKit
         dot.addAnimation(positionYAnimation, forKey: "positionYAnimation")
         dot.addAnimation(scaleAnimation, forKey: "scaleAnimation")
         dot.addAnimation(moveAnimation, forKey: "moveAnimation")
+    }
+    
+    public func fade(direction: FadeDirection) {
+        dispatch_async(dispatch_get_main_queue()) {
+            UIView.animateWithDuration(0.4) {
+                self.alpha = direction == .In ? 1.0 : 0.0
+            }
+        }
     }
 }

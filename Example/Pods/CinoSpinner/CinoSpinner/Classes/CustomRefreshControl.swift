@@ -1,20 +1,11 @@
-//
-//  CinoSpinner.swift
-//  Flashpick-iOS
-//
-//  Created by Marcin Jackowski on 08/03/16.
-//  Copyright © 2016 Paweł Sternik. All rights reserved.
-//
-
 import Foundation
 import UIKit
 
 @objc public class CustomRefreshControl: UIRefreshControl {
     
     public var hidesWhenStopped = false
-    private static let spinnerHeight: CGFloat = 50
-    private var cinoSpinner = CinoSpinner(frame: CGRect(x: 0, y: 0, width: CustomRefreshControl.spinnerHeight, height: CustomRefreshControl.spinnerHeight))
-
+    private var cinoSpinner = CinoSpinner()
+    
     public func setup() {
         self.tintColor = .clearColor()
         self.addSubview(cinoSpinner)
@@ -23,32 +14,29 @@ import UIKit
     
     private func setConstraintForSpinner() {
         self.addConstraints(cinoSpinner.centerInParentView(self))
-        self.addConstraints(cinoSpinner.setDimensionConstraints(width: CustomRefreshControl.spinnerHeight, height: CustomRefreshControl.spinnerHeight))
+        self.addConstraints(cinoSpinner.setDimensionConstraints(width: CinoSpinner.dimension, height: CinoSpinner.dimension))
         cinoSpinner.setup(alpha: 0.0)
     }
-
+    
     public func changeSpinnerAlpha(contentOffset: CGFloat) {
         let absoluteValue = (abs(contentOffset) / 100.0)
         cinoSpinner.alpha = absoluteValue
     }
     
+    public override func endRefreshing() {
+        super.endRefreshing()
+        if self.hidesWhenStopped {
+            self.cinoSpinner.fade(CinoSpinner.FadeDirection.Out)
+        }
+    }
+    
+    public override func beginRefreshing() {
+        super.beginRefreshing()
+        cinoSpinner.fade(CinoSpinner.FadeDirection.In)
+    }
+    
     public func refreshAnimation() {
         cinoSpinner.startAnimation()
-    }
-    
-    public func startRefreshing() {
-        UIView.animateWithDuration(0.4) {
-            self.cinoSpinner.alpha = 1.0
-        }
-    }
-    
-    public func stopRefreshing() {
-        dispatch_async(dispatch_get_main_queue()) {
-            self.endRefreshing()
-            if self.hidesWhenStopped {
-                self.cinoSpinner.alpha = 0.0
-            }
-        }
     }
 }
 

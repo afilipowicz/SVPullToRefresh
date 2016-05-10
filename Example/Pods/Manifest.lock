@@ -1,6 +1,6 @@
 PODS:
-  - CinoSpinner (1.0.4)
-  - SVPullToRefresh (0.4.3):
+  - CinoSpinner (1.0.5)
+  - SVPullToRefresh (0.4.4):
     - CinoSpinner (~> 1.0)
 
 DEPENDENCIES:
@@ -11,7 +11,7 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  CinoSpinner: 3ef2a00e780a5b929eb3f42891b7d8adc6a0482f
-  SVPullToRefresh: 42bda474cb66d83def202b5f3a63e28a0fd40428
+  CinoSpinner: c927e549205d4bad91a8b98350623b63b8c745b6
+  SVPullToRefresh: de5330e47abe82ddf4beb70fdb050854958b911a
 
 COCOAPODS: 0.39.0

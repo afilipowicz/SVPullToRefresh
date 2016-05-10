@@ -1,8 +1,8 @@
 Pod::Spec.new do |s|
   s.name             = "SVPullToRefresh"
-  s.version          = "0.4.4"
+  s.version          = "0.4.5"
   s.platform         = :ios, '8.0'
-  s.summary          = "A short description of SVPullToRefresh."
+  s.summary          = "Give pull-to-refresh to any UIScrollView with 1 line of code."
   s.description      = 'SVPullToRefresh allows you to easily add pull-to-refresh ' \
                        'functionality to any UIScrollView subclass with only 1 ' \
                        'line of code. Instead of depending on delegates and/or ' \

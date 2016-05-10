@@ -209,9 +209,9 @@ UIEdgeInsets scrollViewOriginalContentInsets;
 - (CustomRefreshControl *)activityIndicatorView {
     if(!_activityIndicatorView) {
         _activityIndicatorView = [CustomRefreshControl new];
+        [self addSubview:_activityIndicatorView];
         [_activityIndicatorView setup];
         _activityIndicatorView.hidesWhenStopped = YES;
-        [self addSubview:_activityIndicatorView];
     }
     return _activityIndicatorView;
 }
@@ -276,15 +276,15 @@ UIEdgeInsets scrollViewOriginalContentInsets;
         
         switch (newState) {
             case SVInfiniteScrollingStateStopped:
-                [self.activityIndicatorView stopRefreshing];
+                [self.activityIndicatorView endRefreshing];
                 break;
                 
             case SVInfiniteScrollingStateTriggered:
-                [self.activityIndicatorView startRefreshing];
+                [self.activityIndicatorView beginRefreshing];
                 break;
                 
             case SVInfiniteScrollingStateLoading:
-                [self.activityIndicatorView startRefreshing];
+                [self.activityIndicatorView beginRefreshing];
                 break;
         }
     }
