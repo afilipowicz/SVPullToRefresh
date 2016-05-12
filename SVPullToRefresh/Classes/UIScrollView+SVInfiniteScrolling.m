@@ -138,6 +138,7 @@ UIEdgeInsets scrollViewOriginalContentInsets;
             [scrollView removeObserver:self forKeyPath:@"contentOffset"];
             [scrollView removeObserver:self forKeyPath:@"contentSize"];
             self.isObserving = NO;
+            [self resetScrollViewContentInset];
         }
     }
 }
@@ -187,7 +188,9 @@ UIEdgeInsets scrollViewOriginalContentInsets;
 
 - (void)scrollViewDidScroll:(CGPoint)contentOffset {
     if(self.state != SVInfiniteScrollingStateLoading && self.enabled) {
-        self.scrollView.showsInfiniteScrolling = YES;
+        if (contentOffset.y != 0.0) {
+            self.scrollView.showsInfiniteScrolling = YES;
+        }
         CGFloat scrollViewContentHeight = self.scrollView.contentSize.height;
         CGFloat scrollOffsetThreshold = scrollViewContentHeight-self.scrollView.bounds.size.height;
         
@@ -286,6 +289,20 @@ UIEdgeInsets scrollViewOriginalContentInsets;
     
     if(previousState == SVInfiniteScrollingStateTriggered && newState == SVInfiniteScrollingStateLoading && self.infiniteScrollingHandler && self.enabled)
         self.infiniteScrollingHandler();
+}
+
+- (void)setEnabled:(BOOL)enabled {
+    if (_enabled == enabled) {
+        return;
+    }
+    
+    _enabled = enabled;
+    
+    if (!enabled) {
+        [self resetScrollViewContentInset];
+    } else {
+        [self setScrollViewContentInsetForInfiniteScrolling];
+    }
 }
 
 @end

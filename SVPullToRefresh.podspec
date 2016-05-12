@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "SVPullToRefresh"
-  s.version          = "0.5.0"
+  s.version          = "0.5.1"
   s.platform         = :ios, '8.0'
   s.summary          = "Give pull-to-refresh to any UIScrollView with 1 line of code."
   s.description      = 'SVPullToRefresh allows you to easily add pull-to-refresh ' \
