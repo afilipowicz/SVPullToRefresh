@@ -246,10 +246,6 @@ UIEdgeInsets scrollViewOriginalContentInsets;
 }
 
 - (void)setState:(SVInfiniteScrollingState)newState {
-    
-    if(_state == newState)
-        return;
-    
     SVInfiniteScrollingState previousState = _state;
     _state = newState;
     
@@ -268,9 +264,11 @@ UIEdgeInsets scrollViewOriginalContentInsets;
         [customView setFrame:CGRectMake(origin.x, origin.y, viewBounds.size.width, viewBounds.size.height)];
     }
     else {
-        CGRect viewBounds = [self.activityIndicatorView bounds];
-        CGPoint origin = CGPointMake(roundf((self.bounds.size.width-viewBounds.size.width)/2), roundf((self.bounds.size.height-viewBounds.size.height)/2));
-        [self.activityIndicatorView setFrame:CGRectMake(origin.x, origin.y, viewBounds.size.width, viewBounds.size.height)];
+        if (self.enabled) {
+            CGRect viewBounds = [self.activityIndicatorView bounds];
+            CGPoint origin = CGPointMake(roundf((self.bounds.size.width-viewBounds.size.width)/2), roundf((self.bounds.size.height-viewBounds.size.height)/2));
+            [self.activityIndicatorView setFrame:CGRectMake(origin.x, origin.y, viewBounds.size.width, viewBounds.size.height)];
+        }
         
         switch (newState) {
             case SVInfiniteScrollingStateStopped:
